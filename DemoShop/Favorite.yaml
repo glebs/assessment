@@ -1,0 +1,73 @@
+appId: com.android.chrome
+tags:
+  - regression
+
+---
+- runFlow:
+    file: login.yaml
+    optional: true
+
+# favorite icon has no id or text and using coordinates is not a good idea
+
+- assertVisible: 📦
+- longPressOn: 
+    text: 📦
+    index: 0
+- tapOn: .* products found
+- assertVisible: Quick Favorite
+- assertVisible: Quick Add
+- assertVisible: Close
+- tapOn: Quick Favorite
+
+- assertVisible: 
+    text: "1"
+    rightOf: DemoShop
+- scrollUntilVisible:
+    element:
+      text: 📦
+      index: 1
+    visibilityPercentage: 100
+    centerElement: true
+- longPressOn: 
+    text: 📦
+    index: 1
+- tapOn: Smart Watch
+
+- assertVisible: Quick Favorite
+- assertVisible: Quick Add
+- assertVisible: Close
+- tapOn: Quick Favorite
+- assertVisible: 
+    text: "2"
+    rightOf: DemoShop
+
+# remove fav
+- longPressOn: 
+    text: 📦
+    index: 1
+- tapOn: Smart Watch
+- assertVisible: Quick Favorite
+- assertVisible: Quick Add
+- assertVisible: Close
+- tapOn: Quick Favorite
+
+- scrollUntilVisible:
+    element:
+      text: 📦
+      index: 0
+    direction: UP
+    visibilityPercentage: 100
+    centerElement: true
+
+- longPressOn: 
+    text: 📦
+    index: 0
+- tapOn: .* products found
+- assertVisible: Quick Favorite
+- assertVisible: Quick Add
+- assertVisible: Close
+- tapOn: Quick Favorite
+
+- assertNotVisible: 
+    text: "1"
+    rightOf: DemoShop

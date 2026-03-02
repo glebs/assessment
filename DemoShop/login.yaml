@@ -1,0 +1,46 @@
+appId: com.android.chrome
+---
+- launchApp:
+    appId: com.android.chrome
+    clearState: true
+
+# Dismiss fresh Chrome
+- runFlow:
+    when:
+      visible: Make Chrome your own
+    commands: 
+      - tapOn: Use without an account
+
+- runFlow: 
+    when:
+      visible: Enhanced ad privacy in Chrome
+    commands: 
+      - tapOn: Got it
+    
+# Open url:
+  
+- openLink: https://qa-mobile-automation.vercel.app/
+
+- assertScreenshot:
+    path: login.png
+    thresholdPercentage: 95.0
+  
+- tapOn: Username input
+- inputText: user@test.com
+- hideKeyboard
+- tapOn: Password input
+
+# Wrong password
+- inputText: wrongpassword
+- tapOn: Login
+- assertVisible: Invalid credentials. Try user@test.com / password123
+
+# good password
+- tapOn: Password input
+- eraseText
+- inputText: password123
+- tapOn: Login
+
+- assertVisible: .* products found
+
+

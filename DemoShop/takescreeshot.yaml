@@ -1,0 +1,4 @@
+appId: com.android.chrome
+---
+- takeScreenshot:
+    path: login
